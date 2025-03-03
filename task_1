@@ -1,0 +1,147 @@
+Первый класс:
+from typing import Union
+
+class Table:
+    """
+    Класс, описывающий стол.
+    Атрибуты:
+        length (float): Длина стола в метрах.
+        width (float): Ширина стола в метрах.
+        material (str): Материал, из которого сделан стол.
+    """
+
+    def __init__(self, length: float, width: float, material: str):
+        if length <= 0 or width <= 0:
+            raise ValueError("Длина и ширина стола должны быть положительными числами.")
+        if not isinstance(material, str):
+            raise TypeError("Материал должен быть строкой.")
+        
+        self.length = length
+        self.width = width
+        self.material = material
+
+    def calculate_area(self) -> float:
+        """
+        Вычисляет площадь стола.
+
+        :return: Площадь стола в квадратных метрах.
+        :rtype: float
+
+        Пример:
+        >>> table = Table(2.0, 1.0, "дерево")
+        >>> table.calculate_area()
+        2.0
+        """
+        ...
+
+    def change_material(self, new_material: str) -> None:
+        """
+        Изменяет материал стола.
+
+        :param new_material: Новый материал стола.
+        :type new_material: str
+
+        Пример:
+        >>> table = Table(2.0, 1.0, "дерево")
+        >>> table.change_material("стекло")
+        """
+        ...
+
+Второй класс:
+from typing import Union
+
+class Tree:
+    """
+    Класс, описывающий дерево.
+    Атрибуты:
+        height (float): Высота дерева в метрах.
+        age (int): Возраст дерева в годах.
+        species (str): Вид дерева.
+    """
+
+    def __init__(self, height: float, age: int, species: str):
+        if height <= 0:
+            raise ValueError("Высота дерева должна быть положительным числом.")
+        if age <= 0:
+            raise ValueError("Возраст дерева должен быть положительным числом.")
+        if not isinstance(species, str):
+            raise TypeError("Вид дерева должен быть строкой.")
+        
+        self.height = height
+        self.age = age
+        self.species = species
+
+    def grow(self, years: int) -> None:
+        """
+        Увеличивает возраст дерева на указанное количество лет.
+
+        :param years: Количество лет, на которое увеличивается возраст.
+        :type years: int
+
+        Пример:
+        >>> tree = Tree(10.0, 5, "дуб")
+        >>> tree.grow(10)
+        """
+        ...
+
+    def get_description(self) -> str:
+        """
+        Возвращает описание дерева.
+
+        :return: Строка с описанием дерева.
+        :rtype: str
+
+        Пример:
+        >>> tree = Tree(10.0, 5, "дуб")
+        >>> tree.get_description()
+        'Дерево вида дуб, высотой 10.0 метров, возрастом 5 лет.'
+        """
+        ...
+
+
+Третий класс:
+from typing import List
+
+class SocialNetwork:
+    """
+    Класс, описывающий социальную сеть.
+    Атрибуты:
+        name (str): Название социальной сети.
+        users (List[str]): Список пользователей.
+        active (bool): Статус активности сети (работает/не работает).
+    """
+
+    def __init__(self, name: str, users: List[str], active: bool):
+        if not isinstance(name, str):
+            raise TypeError("Название сети должно быть строкой.")
+        if not isinstance(users, list):
+            raise TypeError("Пользователи должны быть списком.")
+        if not isinstance(active, bool):
+            raise TypeError("Статус активности должен быть булевым значением.")
+        
+        self.name = name
+        self.users = users
+        self.active = active
+
+    def add_user(self, user: str) -> None:
+        """
+        Добавляет пользователя в социальную сеть.
+
+        :param user: Имя пользователя.
+        :type user: str
+
+        Пример:
+        >>> network = SocialNetwork("Facebook", ["Alice", "Bob"], True)
+        >>> network.add_user("Charlie")
+        """
+        ...
+
+    def deactivate(self) -> None:
+        """
+        Деактивирует социальную сеть.
+
+        Пример:
+        >>> network = SocialNetwork("Facebook", ["Alice", "Bob"], True)
+        >>> network.deactivate()
+        """
+        ...
