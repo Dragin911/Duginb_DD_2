@@ -1,0 +1,119 @@
+from typing import Optional
+
+class Vehicle:
+    """
+    Базовый класс для всех транспортных средств.
+    
+    Атрибуты:
+        make (str): Марка транспортного средства.
+        model (str): Модель транспортного средства.
+        year (int): Год выпуска транспортного средства.
+        _mileage (Optional[float]): Пробег транспортного средства (инкапсулированный атрибут).
+    """
+    
+    def __init__(self, make: str, model: str, year: int, mileage: Optional[float] = None) -> None:
+        """
+        Конструктор базового класса Vehicle.
+        
+        Аргументы:
+            make (str): Марка транспортного средства.
+            model (str): Модель транспортного средства.
+            year (int): Год выпуска транспортного средства.
+            mileage (Optional[float]): Пробег транспортного средства. По умолчанию None.
+        """
+        self.make = make
+        self.model = model
+        self.year = year
+        self._mileage = mileage  # Инкапсулированный атрибут, так как пробег может изменяться только через методы.
+
+    def __str__(self) -> str:
+        """Возвращает строковое представление транспортного средства."""
+        return f"{self.year} {self.make} {self.model}"
+
+    def __repr__(self) -> str:
+        """Возвращает официальное строковое представление объекта для отладки."""
+        return f"Vehicle(make={self.make!r}, model={self.model!r}, year={self.year!r}, mileage={self._mileage!r})"
+
+    def get_mileage(self) -> Optional[float]:
+        """Возвращает текущий пробег транспортного средства."""
+        return self._mileage
+
+    def update_mileage(self, new_mileage: float) -> None:
+        """
+        Обновляет пробег транспортного средства.
+        
+        Аргументы:
+            new_mileage (float): Новое значение пробега.
+        
+        Исключения:
+            ValueError: Если новое значение пробега меньше текущего.
+        """
+        if self._mileage is not None and new_mileage < self._mileage:
+            raise ValueError("Новый пробег не может быть меньше текущего.")
+        self._mileage = new_mileage
+
+    def start_engine(self) -> str:
+        """Запускает двигатель транспортного средства."""
+        return "Двигатель запущен."
+
+
+class Car(Vehicle):
+    """
+    Дочерний класс для легковых автомобилей.
+    
+    Атрибуты:
+        make (str): Марка автомобиля.
+        model (str): Модель автомобиля.
+        year (int): Год выпуска автомобиля.
+        mileage (Optional[float]): Пробег автомобиля.
+        num_doors (int): Количество дверей у автомобиля.
+    """
+    
+    def __init__(self, make: str, model: str, year: int, num_doors: int, mileage: Optional[float] = None) -> None:
+        """
+        Конструктор дочернего класса Car.
+        
+        Аргументы:
+            make (str): Марка автомобиля.
+            model (str): Модель автомобиля.
+            year (int): Год выпуска автомобиля.
+            num_doors (int): Количество дверей у автомобиля.
+            mileage (Optional[float]): Пробег автомобиля. По умолчанию None.
+        """
+        super().__init__(make, model, year, mileage)
+        self.num_doors = num_doors
+
+    def __str__(self) -> str:
+        """Возвращает строковое представление автомобиля."""
+        return f"{super().__str__()} с {self.num_doors} дверями"
+
+    def __repr__(self) -> str:
+        """Возвращает официальное строковое представление объекта для отладки."""
+        return f"Car(make={self.make!r}, model={self.model!r}, year={self.year!r}, num_doors={self.num_doors!r}, mileage={self._mileage!r})"
+
+    def start_engine(self) -> str:
+        """
+        Перегруженный метод для запуска двигателя автомобиля.
+        
+        Возвращает:
+            str: Сообщение о запуске двигателя с учетом типа транспортного средства.
+        """
+        return "Двигатель легкового автомобиля запущен."
+
+    def honk(self) -> str:
+        """Метод, уникальный для класса Car. Сигналит."""
+        return "Би-би!"
+
+
+if __name__ == "__main__":
+    # Пример использования классов
+    vehicle = Vehicle("Toyota", "Camry", 2020, 15000.5)
+    print(vehicle)  # Используется __str__
+    print(repr(vehicle))  # Используется __repr__
+    print(vehicle.start_engine())
+
+    car = Car("Honda", "Civic", 2019, 4, 20000.0)
+    print(car)  # Используется __str__
+    print(repr(car))  # Используется __repr__
+    print(car.start_engine())  # Перегруженный метод
+    print(car.honk())  # Уникальный метод для Car
