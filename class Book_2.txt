@@ -1,0 +1,52 @@
+class Book:
+    """Класс для представления книги."""
+
+    def __init__(self, id_: int, name: str, pages: int):
+        """
+        Конструктор класса Book.
+
+        Аргументы:
+            id_ (int): Идентификатор книги.
+            name (str): Название книги.
+            pages (int): Количество страниц.
+        """
+        self.id = id_
+        self.name = name
+        self.pages = pages
+
+    def __str__(self) -> str:
+        """Возвращает строковое представление книги."""
+        return f'Книга "{self.name}"'
+
+    def __repr__(self) -> str:
+        """Возвращает строку для инициализации точно такого же экземпляра."""
+        return f"Book(id_={self.id!r}, name={self.name!r}, pages={self.pages!r})"
+
+
+# Пример использования
+BOOKS_DATABASE = [
+    {
+        "id": 1,
+        "name": "test_name_1",
+        "pages": 200,
+    },
+    {
+        "id": 2,
+        "name": "test_name_2",
+        "pages": 400,
+    }
+]
+
+if __name__ == '__main__':
+    # Инициализируем список книг
+    list_books = [
+        Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
+    ]
+
+    # Проверяем метод __str__
+    for book in list_books:
+        print(book)  # Вывод: Книга "test_name_1", Книга "test_name_2"
+
+    # Проверяем метод __repr__
+    print(list_books)  # Вывод: [Book(id_=1, name='test_name_1', pages=200), Book(id_=2, name='test_name_2', pages=400)]
+
